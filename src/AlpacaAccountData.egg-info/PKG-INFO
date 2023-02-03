@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: AlpacaAccountData
-Version: 0.0.2
+Version: 0.0.7
 Summary: Manage Alpaca accounts via office utils.
 Author-email: Hunter Dale <guyyatsu@gmail.com>
 Project-URL: Homepage, https://github.com/guyyatsu/Broker-Bot
