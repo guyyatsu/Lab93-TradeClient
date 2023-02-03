@@ -1,5 +1,7 @@
 from alpaca.trading.client import TradingClient
 from alpaca.trading.enums import AssetClass
+from CredentialManagement import CredentialManagement
+
 
 class AccountEnumeration:
   def __init__(self, keyfile, database, paperage=False):
@@ -82,42 +84,47 @@ class AccountEnumeration:
   
     # Make the API call requesting positions.
     positions = self.client.get_all_positions()
+    print(positions)
   
     # Establish data structure for collections.
     positional_data = {}
   
     # Populate the structure.
     for position in positions:
-      positional_data[position.symbol]["asset id"] = position.asset_id
-      positional_data[position.symbol]["symbol"] = position.symbol
-      positional_data[position.symbol]["exchange"] = position.exchange
-      positional_data[position.symbol]["asset class"] = position.asset_class
-      positional_data[position.symbol]["average entry price"] = position.avg_entry_price
-      positional_data[position.symbol]["quantity"] = position.qty
-      positional_data[position.symbol]["quantity available"] = position.qty_available
-      positional_data[position.symbol]["side"] = position.side
-      positional_data[position.symbol]["market value"] = position.market_value
-      positional_data[position.symbol]["cost basis"] = position.cost_basis
-      positional_data[position.symbol]["unrealized profit/loss"] = position.unrealized_pl
-      positional_data[position.symbol]["unrealized profit/loss percent"] = position.unrealized_plpc
-      positional_data[position.symbol]["unrealized intraday profit/loss"] = position.unrealized_intraday_pl
-      positional_data[position.symbol]["unrealized intraday profit/loss percent"] = position.unrealized_intraday_plpc
-      positional_data[position.symbol]["current price"] = position.current_price
-      positional_data[position.symbol]["last day price"] = position.lastday_price
-      positional_data[position.symbol]["change today"] = position.change_today
+      positional_data = {
+        str(position.symbol): {
+          "symbol": position.symbol,
+          "exchange": position.exchange,
+          "asset class": position.asset_class,
+          "average entry price": position.avg_entry_price,
+          "quantity": position.qty,
+          "side": position.side,
+          "market value": position.market_value,
+          "cost basis": position.cost_basis,
+          "unrealized profit/loss": position.unrealized_pl,
+          "unrealized profit/loss percent": position.unrealized_plpc,
+          "unrealized intraday profit/loss": position.unrealized_intraday_pl,
+          "unrealized intraday profit/loss percent": position.unrealized_intraday_plpc,
+          "current price": position.current_price,
+          "last day price": position.lastday_price,
+          "change today": position.change_today
+        }
+      }
+
   
      
     # For interactive usage.
     if cmdline is True:
       message = "Your positions:"
       for position in positional_data:
-        message += f"\n\nSymbol: {position['symbol']}"
-        message += f"\nClass: {position['asset class']}"
-        message += f"\nCurrent Price: {position['current price']}"
-        message += f"\nSide: {position['side']}"
-        message += f"\nQuantity: {position['quantity']}"
-        message += f"\nValue: {position['market value']}"
-        message += f"\nBuy-In: {position['cost basis']}"
+        print(position)
+        message += f"\n\nSymbol: {positional_data[position]['symbol']}"
+        message += f"\nClass: {positional_data[position]['asset class']}"
+        message += f"\nCurrent Price: {positional_data[position]['current price']}"
+        message += f"\nSide: {positional_data[position]['side']}"
+        message += f"\nQuantity: {positional_data[position]['quantity']}"
+        message += f"\nValue: {positional_data[position]['market value']}"
+        message += f"\nBuy-In: {positional_data[position]['cost basis']}"
       return message
   
     # For programmatic usage.
