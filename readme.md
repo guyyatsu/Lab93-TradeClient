@@ -1,5 +1,5 @@
 # Alpaca Account Data
-Retrieve and prepare data related to an alpaca.market trading account.
+Retrieve and prepare data related to an alpaca.market trading account.  Uses Alpaca-Py and CredentialManagement.
 
 ## Positions
 Positions refer to any non-fiat assets held by the account.  This could be bitcoin, or other
