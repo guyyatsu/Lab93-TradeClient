@@ -1,47 +1,20 @@
 from logging import getLogger, info, debug, exception
 
-from CredentialManagement import CredentialManagement
 
 from alpaca.trading.client import TradingClient
 from alpaca.trading.requests import GetAssetsRequest
 from alpaca.trading.enums import AssetClass
 
 
-getLogger()
 
 
 class AccountEnumeration:
 
+  getLogger()
 
-
-
-
-  def __init__(self, keyfile, database, paperage=False):
+  def __init__(self, key, secret, paperage=False):
     """
-    Unlock market api credentials using a ```keyfile``` and a ```database```; where ```keyfile``` is
-    a filepath to an ssh private key, and ```database``` is a filepath to a sqlite3.db file formatted
-    with a __*credentials*__ table with username, alpaca_key, and alpaca_secret colums.
-
-    It's assumed these columns are populated with an 'admin' user and valid alpaca credentials.
     """
-
-
-    # Unlock the Alpaca.Markets API key and secret.
-    debug("Unlocking alpaca credentials from:\n{database}")
-    debug("Using encryption key:\n{keyfile}")
-    try:
-      credentials = CredentialManagement.MultiKeyAPICredentials(
-        platform="alpaca", credabase=database, keyfile=keyfile
-      )
-
-      # Pull the credentials from the dictionary.
-      key = credentials['key']; secret = credentials['secret']
-      debug(f"Alpaca key and secret successfully retrieved.")
-
-    except Exception as error:
-      exception(f"There was a problem unlocking alpaca credentials:\n{error}")
-      return error
-    
 
     # Initialize the trade client with key and secret.
     debug("Initializing Alpaca trading client.")
